@@ -40,7 +40,17 @@ body{
             <span><i class="fas fa-cog"></i></span>
           </div>
         </header>
-      
+<script>
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+  // Store
+  localStorage.setItem("lastname", "Smith");
+  // Retrieve
+  document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+} else {
+  document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
         <main class="msger-chat">
           <div class="msg left-msg">
             <div
@@ -97,6 +107,7 @@ body{
     </div>
       </section>
     
+<div id="result"></div>
 
 
     
