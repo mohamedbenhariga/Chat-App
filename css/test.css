@@ -1,0 +1,33 @@
+@charset "UTF-8";
+ 
+
+section{
+  margin: auto;
+  display: block;
+ }
+ header{
+height:400px ;
+text-align: center;
+top:0px;
+margin: 0px;
+padding:0px;
+
+ }
+
+form{
+  margin: auto;
+  display: block;
+  height:400px ;
+text-align: center;
+top:0px;
+margin: 0px;
+padding:0px;
+
+
+}
+input{
+border-radius: 30px;
+}
+button{
+border-radius: 30px;
+}
