@@ -1,40 +1,51 @@
 const http = require('http');
-var MongoClient =require('mongodb'),MongoClient;
-var url ='mongodb:/localhost/EmployeeDB';
-const WebSocket = require("ws");
-const wss = new WebSocket.Server({ port: 8082 });
-wss.on("connection", ws => {
-  console.log("connection")
-})
+var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);
 
-ws.onmessage = ({data}) => {
-  wss.clients.forEach(function each(client) {
-  if (client !== ws && client.readyState === WebSocket.OPEN) {
-    client.send(`${data}`);
-  }
-});}
-ws.onclose = function() {
-  console.log(`Client ${ws.id} has disconnected!`);
+
+// When the connection is open, send some data to the server
+connection.onopen = function () {
+connection.send('Ping'); // Send the message 'Ping' to the server
 };
 
-if ("WebSocket" in window) { 
-  let ws = new WebSocket("ws://localhost:8082");
-  // Then only do something with ws
+// Log errors
+connection.onerror = function (error) {
+console.log('WebSocket Error ' + error);
+};
+
+// Log messages from the server
+connection.onmessage = function (e) {
+console.log('Server: ' + e.data);
+};
+
+
+
+// Sending String
+connection.send('your message');
+
+// Sending canvas ImageData as ArrayBuffer
+var img = canvas_context.getImageData(0, 0, 400, 320);
+var binary = new Uint8Array(img.data.length);
+for (var i = 0; i < img.data.length; i++) {
+binary[i] = img.data[i];
 }
-ws.onopen = function() {
-  console.log("Connected to Server");
+connection.send(binary.buffer);
+
+// Sending file as Blob
+var file = document.querySelector('input[type="file"]').files[0];
+connection.send(file);
+
+
+
+// Setting binaryType to accept received binary as either 'blob' or 'arraybuffer'
+connection.binaryType = 'arraybuffer';
+connection.onmessage = function(e) {
+console.log(e.data.byteLength); // ArrayBuffer object if binary
 };
 
 
+// Determining accepted extensions
+console.log(connection.extensions);
 
-ws.send(messageBox.value);
-ws.onmessage = function ({data}) {
-  showMessage(`YOU: ${data}`);
-};
-
-
-ws.onclose = function() {
-console.log("closed")};
 
 const hostname = '127.0.0.1';
 const port = 3000;
